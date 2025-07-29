@@ -71,7 +71,8 @@ const EditProfile = () => {
       }
 
       Alert.alert("Success", "Profile updated successfully");
-      navigation.goBack(); // or navigate to profile
+      navigation.goBack();
+
     } catch (error) {
       console.error("Update error:", error);
       Alert.alert("Update failed", "An unexpected error occurred.");

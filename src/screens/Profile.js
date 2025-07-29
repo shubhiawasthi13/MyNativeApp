@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from "react";
+import React, { useState ,useEffect} from "react";
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Courses from "./Courses";
 import MyLearning from "./MyLearning";
+
 
 // Create Tab Navigator
 const Tab = createMaterialTopTabNavigator();
@@ -99,9 +100,12 @@ export default function Profile() {
     });
   }, [navigation]);
 
-  useEffect(() => {
-    fetchUserProfile();
-  }, []);
+
+useEffect(() => {
+  fetchUserProfile();
+}, []);
+
+
 
   if (loading) {
     return (
