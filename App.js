@@ -8,7 +8,7 @@ import LoginScreen from "./src/screens/Login";
 import RegisterScreen from "./src/screens/Register";
 import CoursesScreen from "./src/screens/Courses";
 import ProfileScreen from "./src/screens/Profile";
-import EditProfileScreen from "./src/screens/EditProfile"
+import EditProfileScreen from "./src/screens/EditProfile";
 import CourseDetailsScreen from "./src/screens/CourseDetails";
 import CourseProgressScreen from "./src/screens/CourseProgress";
 import InterviewPrepScreen from "./src/screens/InterviewPrepScreen";
@@ -32,13 +32,12 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Courses" component={CoursesScreen} />
         <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-           <Stack.Screen name="CourseDetails" component={CourseDetailsScreen} />
-            <Stack.Screen name="CourseProgress" component={CourseProgressScreen} />
-            
-  <Stack.Screen name="InterviewPrep" component={InterviewPrepScreen} />
+        <Stack.Screen name="CourseDetails" component={CourseDetailsScreen} />
+        <Stack.Screen name="CourseProgress" component={CourseProgressScreen} />
+        <Stack.Screen name="InterviewPrep" component={InterviewPrepScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

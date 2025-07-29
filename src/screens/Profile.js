@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import {
   View,
   Text,
@@ -14,7 +14,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Courses from "./Courses";
 import MyLearning from "./MyLearning";
-
 
 // Create Tab Navigator
 const Tab = createMaterialTopTabNavigator();
@@ -55,7 +54,10 @@ export default function Profile() {
     try {
       await AsyncStorage.removeItem("token");
       Alert.alert("Success", "You have been logged out.");
-      navigation.replace("Login");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Home" }],
+      });
     } catch (error) {
       console.error("Logout Error:", error);
       Alert.alert("Error", "Something went wrong while logging out.");
@@ -100,12 +102,9 @@ export default function Profile() {
     });
   }, [navigation]);
 
-
-useEffect(() => {
-  fetchUserProfile();
-}, []);
-
-
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
 
   if (loading) {
     return (

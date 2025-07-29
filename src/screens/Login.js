@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import {
   View,
@@ -8,49 +7,56 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
- import AsyncStorage from "@react-native-async-storage/async-storage"; // add this at the top
+import AsyncStorage from "@react-native-async-storage/async-storage"; // add this at the top
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
-const handleLogin = async () => {
-  if (!email || !password) {
-    Alert.alert("Validation Error", "Please fill in all required fields");
-    return;
-  }
-
-  try {
-    const response = await fetch("https://growskill-6gaq.onrender.com/api/v1/user/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include", // for cookies, but not used in token-based auth
-      body: JSON.stringify({ email, password }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      Alert.alert("Login Failed", data.message || "Something went wrong");
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert("Validation Error", "Please fill in all required fields");
       return;
     }
 
-    // ✅ Save token
-    await AsyncStorage.setItem("token", data.token);
-    await AsyncStorage.setItem("user", JSON.stringify(data.user));
+    try {
+      const response = await fetch(
+        "https://growskill-6gaq.onrender.com/api/v1/user/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
-    Alert.alert("Success", "Login successful!");
+      const data = await response.json();
 
-    navigation.navigate("Profile");
-  } catch (error) {
-    console.error("Login Error:", error);
-    Alert.alert("Error", "Failed to login. Please try again.");
-  }
-};
+      if (!response.ok) {
+        Alert.alert("Login Failed", data.message || "Something went wrong");
+        return;
+      }
 
+      // ✅ Save token and user
+      await AsyncStorage.setItem("token", data.token);
+      await AsyncStorage.setItem("user", JSON.stringify(data.user));
+
+      Alert.alert("Success", "Login successful!");
+
+      // ✅ Reset navigation stack to Profile
+      navigation.reset({
+        index: 1,
+        routes: [
+          { name: "Home" }, // index 0
+          { name: "Profile" }, // index 1 (active screen)
+        ],
+      });
+    } catch (error) {
+      console.error("Login Error:", error);
+      Alert.alert("Error", "Failed to login. Please try again.");
+    }
+  };
 
   return (
     <View style={styles.container}>
